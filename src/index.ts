@@ -17,6 +17,11 @@ app.post('/process-file', async (_req: Request, res: Response) => {
   }
 });
 
+app.get('/health', (_req, res) => {
+  res.status(200).send('OK');
+});
+
+
 app.listen(port, async () => {
   console.log(`Microservicio en puerto ${port}`);  
 });

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import readline from 'readline';
-import { ConnectionPool, Table, config as SqlConfig, NVarChar, Bit, Date as SqlDate, BigInt, VarChar, DateTime } from 'mssql';
+import { ConnectionPool, Table, NVarChar, Bit, Date as SqlDate, BigInt, VarChar, DateTime } from 'mssql';
 import path from 'path';
 import { getConnection } from '../db/connection';
 import { Cliente } from '../models/Cliente';
