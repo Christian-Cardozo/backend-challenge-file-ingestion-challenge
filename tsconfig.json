@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",             // O "CommonJS" si usás require()
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,        // Esto permite hacer `import express from 'express'`
+    "strict": true    
+  }
+}

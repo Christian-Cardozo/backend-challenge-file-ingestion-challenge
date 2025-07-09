@@ -1,0 +1,52 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=TuPassword123!
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./db:/scripts
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P TuPassword123! -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      retries: 10
+      start_period: 10s
+      timeout: 3s
+
+  sql-init:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=TuPassword123!
+    volumes:
+      - ./db:/scripts
+    entrypoint: >
+      /bin/bash -c "
+      /opt/mssql-tools18/bin/sqlcmd -C -S sqlserver -U sa -P TuPassword123! -d master -i /scripts/init.sql;
+      echo 'Script ejecutado';
+      "      
+  file-processor:    
+    build: .
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      DB_USER: sa
+      DB_PASS: TuPassword123!
+      DB_HOST: sqlserver
+      DB_NAME: ClientesDB
+    volumes:
+      - ./data:/data
+    ports:
+      - "3000:3000"
+
+volumes:
+  sql_data:
