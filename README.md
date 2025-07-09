@@ -20,13 +20,12 @@ NodeJS microservice that reads a .dat file and insert each record into a SQL Ser
 1. Clone the repository:
 
 ```bash
-    git clone https://github.com/Christian-Cardozo/backend-challenge-file-ingestion-challenge.git
-    cd backend-challenge-file-ingestion-challenge    
+    git clone https://github.com/Christian-Cardozo/backend-challenge-file-ingestion-challenge.git        
 ```
 
 2. Create a .env file:
 
-```bash
+```env
     DB_USER=sa
     DB_PASS=TuPassword123!
     DB_HOST=sqlserver
